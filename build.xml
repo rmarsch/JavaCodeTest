@@ -1,0 +1,76 @@
+<project name="codeTest" default="compile" basedir=".">
+
+	
+	<property environment="env" />
+	<property name="lib.dir" value="lib" />
+
+	<property name="src.dir" value="src/main/java" />
+	<property name="build.dir" value="build" />
+	<property name="src.testing.junit" value="src/test/java" />
+	<property name="target.testing.junit" value="test-build" />
+	<property name="debug" value="true" />
+	
+	<path id="project.classpath">
+		<fileset dir="${lib.dir}">
+			<include name="**/*.jar" />
+			<include name="**/*.zip" />
+		</fileset>
+	</path>
+
+	<path id="testing.classpath">
+		<path refid="project.classpath" />
+
+		<pathelement location="${build.dir}" />
+		<pathelement location="${src.testing.junit}" />
+		<pathelement location="${target.testing.junit}" />
+	</path>
+
+	<target name="compile" description="Compile sources.">
+		<mkdir dir="${build.dir}" />
+		<javac srcdir="${src.dir}" destdir="${build.dir}" debug="${debug}">
+			<classpath refid="project.classpath" />
+		</javac>
+	</target>
+
+	<target name="clean" description="Clean build, jar, and output files.">
+		<delete dir="${build.dir}" />
+		<delete dir="${target.testing.junit}" />
+		<delete file="rich-marscher-java-codetest.jar" />
+		<delete file="outputFiles/output.txt" />
+	</target>
+
+	<!-- testing -->
+	<target name="compile-testing-junit" depends="compile" description="Compile mwallet sources.">
+		<mkdir dir="${target.testing.junit}" />
+		<javac srcdir="${src.testing.junit}" destdir="${target.testing.junit}" debug="${debug}">
+			<classpath refid="testing.classpath" />
+			<compilerarg value="-Xlint:deprecation" />
+		</javac>
+	</target>
+
+	<target name="test" depends="compile-testing-junit" description="Run JUnit tests">
+		<junit fork="perBatch" haltonfailure="yes" printsummary="yes" maxmemory="1024m" dir="${basedir}" >
+			<jvmarg value="-XX:MaxPermSize=512m" />
+			<batchtest fork="yes">
+				<fileset dir="${src.testing.junit}">
+					<include name="**/*.java" />
+				</fileset>
+			</batchtest>
+			<formatter type="plain" usefile="false" />
+			<classpath refid="testing.classpath" />
+		</junit>
+	</target>
+
+	<target name="package" depends="compile" description="package the main application for use">
+		<jar jarfile="rich-marscher-java-codetest.jar" update="yes">
+			<fileset dir="build">
+				<include name="**/*.class" />
+			</fileset>
+			<manifest>
+				<attribute name="Main-Class" value="codetest.java.rich.marscher.CodeTest"/>
+			</manifest>
+		</jar>
+	</target>
+
+
+</project>
