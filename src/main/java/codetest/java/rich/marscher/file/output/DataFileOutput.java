@@ -40,7 +40,7 @@ public class DataFileOutput implements DataOutput {
 
 			if(dataObjects != null){
 				while(dataObjects.hasNext()){
-					fileOut.write(dataObjects.next().toString());
+					fileOut.write(dataObjects.next().toDataString());
 					fileOut.write(Util.OS_FILE_NEW_LINE);
 				}
 				fileOut.write(Util.OS_FILE_NEW_LINE);
