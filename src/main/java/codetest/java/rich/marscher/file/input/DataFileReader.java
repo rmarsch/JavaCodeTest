@@ -25,9 +25,11 @@ public class DataFileReader<T extends DataObject> {
 
 
 	/**
-	 * Takes a file path and attempts to parse Person objects from the file. Accepts three Person input file types: comma, pipe, or space separated.
+	 * Takes a file path and attempts to parse T objects from the file where the objects are each on a new line and 
+	 * their values are token separated.
 	 * @param filePath filepath of a valid comma, pipe, or space separated file
-	 * @return Collection of Person objects parsed out of the input file. Null if an error opening or determining format of the file occurs.
+	 * @return Collection of T objects parsed out of the input file. Null if an error opening or determining format of the file occurs
+	 * or if the object of type T is not supported or the token-separator is not supported.
 	 */
 	public Collection<T> getFileData(Class<T> dataClass, String filePath){
 	
@@ -56,7 +58,7 @@ public class DataFileReader<T extends DataObject> {
             @SuppressWarnings("unchecked")
 			FileParser<T> fileParser = (FileParser<T>) FileParserBuilder.buildFileParser(dataClass, dataFileFormat);
 			
-			//If a parser was matched to the input file, parse Person objects
+			//If a parser was matched to the input file, parse T objects
 			return fileParser != null ? retrieveCollection(fileParser, firstLine, in) : null;
 
 		}catch(Exception e){
