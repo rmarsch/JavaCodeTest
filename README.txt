@@ -41,16 +41,13 @@ or
 
 MAVEN
 
-1. Install the included junit archive (in lib/) to maven using the follow (replace the -Dfile path with the proper one for your system)
-mvn install:install-file -DgroupId=org.junit -DartifactId=junit -Dversion=4.1 -Dpackaging=jar -Dfile={PATH_TO_JUNIT.JAR_ON_YOUR_SYSTEM}
-
-2. Build the project (implicitly runs test)
+1. Build the project (implicitly runs test)
 mvn package
 
-3. Execute the jar file from the root folder
+2. Execute the jar file from the root folder
 java -jar target/CodeTest-1.0.jar
  
-4. Assuming no errors, output should be created in a new file
+3. Assuming no errors, output should be created in a new file
 ./outputFiles/output.txt
 
 5. diff -s outputFiles/model_output.txt outputFiles/output.txt
