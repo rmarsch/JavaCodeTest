@@ -43,13 +43,12 @@
   
   <dependencies>    
     <dependency>
-  		<groupId>org.junit</groupId>
-      <artifactId>junit</artifactId>
-			<scope>system</scope>
-			<systemPath>${basedir}/lib/junit-4.1.jar</systemPath>
-			<version>4.1</version>
-		</dependency>
-    
+  	<groupId>org.junit</groupId>
+        <artifactId>junit</artifactId>
+	<scope>system</scope>
+	<systemPath>${basedir}/lib/junit-4.1.jar</systemPath>
+	<version>4.1</version>
+    </dependency>
   </dependencies>
 
 </project>
